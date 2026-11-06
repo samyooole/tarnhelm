@@ -45,15 +45,6 @@ go install github.com/samyooole/tarnhelm/cmd/tarnhelm@latest
 
 This places the binary in `$(go env GOPATH)/bin` (usually `~/go/bin`). Make sure that directory is on your `PATH`, e.g. add `export PATH="$HOME/go/bin:$PATH"` to your shell profile.
 
-Prebuilt Linux AMD64 binaries are attached to [GitHub Releases](https://github.com/samyooole/tarnhelm/releases):
-
-```bash
-curl -fsSLO https://github.com/samyooole/tarnhelm/releases/latest/download/tarnhelm-linux-amd64
-curl -fsSLO https://github.com/samyooole/tarnhelm/releases/latest/download/tarnhelm-linux-amd64.sha256
-sha256sum -c tarnhelm-linux-amd64.sha256
-install -m 0755 tarnhelm-linux-amd64 ~/.local/bin/tarnhelm   # any directory on your PATH
-```
-
 Or build from source:
 
 ```bash
