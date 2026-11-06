@@ -1,0 +1,11 @@
+# Built binary
+/tarnhelm
+
+# Never commit dotenv files
+.env
+.env.*
+!.env.example
+
+# Go
+*.test
+*.out
