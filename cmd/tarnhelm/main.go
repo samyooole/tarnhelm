@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"runtime/debug"
 	"time"
 
 	"github.com/samyooole/tarnhelm/internal/dotenv"
@@ -40,7 +41,24 @@ Options:
     --env-file PATH     dotenv file to read (default: .env)
     --max-output BYTES  combined stdout+stderr limit (default: 16777216)
     --help              show this help
+
+Other commands:
+    tarnhelm --version  print the version
 `
+
+// version is set at build time with -ldflags "-X main.version=..."; when
+// empty, the module version recorded by "go install ...@vX.Y.Z" is used.
+var version string
+
+func versionString() string {
+	if version != "" {
+		return version
+	}
+	if bi, ok := debug.ReadBuildInfo(); ok && bi.Main.Version != "" {
+		return bi.Main.Version
+	}
+	return "(devel)"
+}
 
 func main() {
 	os.Exit(run(os.Args[1:], os.Stdout, os.Stderr))
@@ -54,6 +72,9 @@ func run(args []string, stdout, stderr io.Writer) int {
 	switch args[0] {
 	case "-h", "--help", "help":
 		fmt.Fprint(stdout, usage)
+		return 0
+	case "-v", "--version", "version":
+		fmt.Fprintf(stdout, "tarnhelm %s\n", versionString())
 		return 0
 	case "run":
 	default:

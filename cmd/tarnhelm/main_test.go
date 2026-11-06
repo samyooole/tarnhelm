@@ -291,3 +291,12 @@ func TestInterruptBinary(t *testing.T) {
 		}
 	}
 }
+
+func TestVersion(t *testing.T) {
+	for _, arg := range []string{"--version", "version"} {
+		r := tarnhelm(t, nil, arg)
+		if r.code != 0 || !strings.HasPrefix(r.stdout, "tarnhelm ") {
+			t.Errorf("%s: %+v", arg, r)
+		}
+	}
+}
